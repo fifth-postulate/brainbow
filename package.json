@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/fifth-postulate/brainbow/issues"
   },
-  "homepage": "https://github.com/fifth-postulate/brainbow#readme"
+  "homepage": "https://github.com/fifth-postulate/brainbow#readme",
+  "devDependencies": {
+    "elm": "^0.16.0"
+  }
 }
