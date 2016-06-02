@@ -48,6 +48,10 @@ rotate permutation =
       xs ++ [x]
 
 
+inverseRotate : List a -> List a
+inverseRotate permutation =
+  permutation |> reverse |> rotate |> reverse
+
 swapFirst : List a -> List a
 swapFirst permutation =
   let
@@ -96,6 +100,7 @@ equalize (xs, ys) =
 
 type Message =
   Rotate
+  | InverseRotate
   | Swap
 
 
@@ -104,6 +109,9 @@ update msg model =
   case msg of
     Rotate ->
       { model | permutation = rotate model.permutation }
+
+    InverseRotate ->
+      { model | permutation = inverseRotate model.permutation }
 
     Swap ->
       { model | permutation = swapFirst model.permutation }
@@ -118,6 +126,9 @@ view model =
     rotate =
       button [ onClick Rotate ] [ text "r" ]
 
+    inverse =
+      button [ onClick InverseRotate ] [ text "r^-1" ]
+
     swap =
       button [ onClick Swap ] [ text "s" ]
 
@@ -125,7 +136,7 @@ view model =
       viewPermutation model.permutation
   in
     div []
-        ([ rotate, swap ] ++ permutation)
+        ([ rotate, inverse, swap ] ++ permutation)
 
 
 viewPermutation : List a -> List (Html Message)
