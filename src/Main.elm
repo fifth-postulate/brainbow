@@ -19,13 +19,17 @@ main =
 
 
 type alias Model =
-  { permutation: List Int }
+  {
+    permutation: List Int
+    , size: Int
+  }
 
 
 init : Int -> Model
 init n =
   {
     permutation = range n
+    , size = n
   }
 
 
@@ -106,6 +110,8 @@ type Message =
   Rotate
   | InverseRotate
   | Swap
+  | Increase
+  | Decrease
 
 
 update : Message -> Model -> Model
@@ -120,6 +126,18 @@ update msg model =
     Swap ->
       { model | permutation = swapFirst model.permutation }
 
+    Increase ->
+      let
+        newSize = model.size + 1
+      in
+        { model | size = newSize, permutation = range newSize }
+
+    Decrease ->
+      let
+        newSize = Basics.max 2 (model.size - 1)
+      in
+        { model | size = newSize, permutation = range newSize }
+
 
 -- VIEW
 
@@ -127,6 +145,12 @@ update msg model =
 view : Model -> Html Message
 view model =
   let
+    decrease =
+      button [ onClick Decrease ] [ Html.text "-" ]
+
+    increase =
+      button [ onClick Increase ] [ Html.text "+" ]
+
     rotate =
       button [ onClick Rotate ] [ Html.text "r" ]
 
@@ -140,7 +164,9 @@ view model =
       viewPermutationAsSvg model.permutation
   in
     div [] [
-      rotate
+      decrease
+      , increase
+      , rotate
       , inverse
       , swap
       , brainbow
