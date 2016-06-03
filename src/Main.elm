@@ -136,23 +136,16 @@ view model =
     swap =
       button [ onClick Swap ] [ Html.text "s" ]
 
-    permutation =
-      viewPermutation model.permutation
-
     brainbow =
       viewPermutationAsSvg model.permutation
   in
-    div []
-        ([ rotate, inverse, swap, brainbow ] ++ permutation)
+    div [] [
+      rotate
+      , inverse
+      , swap
+      , brainbow
+    ]
 
-
-viewPermutation : List Int -> List (Html Message)
-viewPermutation permutation =
-  List.map viewElement permutation
-
-viewElement : a -> Html Message
-viewElement n =
-  span [] [ Html.text (toString n) ]
 
 viewPermutationAsSvg : List Int -> Html Message
 viewPermutationAsSvg permutation =
@@ -202,6 +195,7 @@ segment position index total radius =
                    ++ "A" ++ (toString r)  ++ " " ++ (toString r) ++ " 0 0 1 " ++ (toString x1) ++ " " ++ (toString y1)
                    ++ "Z") ] []
     ]
+
 
 segmentColor : Int -> Int -> String
 segmentColor index total =
