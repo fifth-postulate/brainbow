@@ -3,6 +3,8 @@ import Html.App exposing (beginnerProgram)
 import Html.Events exposing (onClick)
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
+import Color exposing (hsl)
+import Color.Convert exposing (colorToCssRgb)
 
 
 main =
@@ -144,7 +146,7 @@ view model =
         ([ rotate, inverse, swap, brainbow ] ++ permutation)
 
 
-viewPermutation : List a -> List (Html Message)
+viewPermutation : List Int -> List (Html Message)
 viewPermutation permutation =
   List.map viewElement permutation
 
@@ -152,10 +154,60 @@ viewElement : a -> Html Message
 viewElement n =
   span [] [ Html.text (toString n) ]
 
-viewPermutationAsSvg : List a -> Html Message
+viewPermutationAsSvg : List Int -> Html Message
 viewPermutationAsSvg permutation =
-  Svg.svg [ width "480", height "480", viewBox "-240 -240 480 480"] [
-    g [ fill "none", stroke "black" ] [
-      circle [ cx "0", cy "0", r "240" ] []
+  let
+    size = (List.length permutation) - 1
+  in
+    Svg.svg [ width "480", height "480", viewBox "-240 -240 480 480"] [
+      g [ fill "none", stroke "black" ] (bow 240 permutation)
+      , g [] (bow 80 [0..(size)])
     ]
-  ]
+
+
+bow : Int -> List Int -> List (Svg Message)
+bow radius permutation =
+  let
+    total = List.length permutation
+
+    mapper = \position -> (\index -> (segment position index total radius))
+  in
+    List.indexedMap mapper permutation
+
+
+segment : Int -> Int -> Int -> Int -> Svg Message
+segment position index total radius =
+  let
+    color = (segmentColor index total)
+
+    baseAngle = 2 * pi / (toFloat total)
+
+    alpha = (toFloat position) * baseAngle
+
+    beta = (toFloat position + 1) * baseAngle
+
+    r = (toFloat radius)
+
+    x0 = r * (cos alpha)
+
+    y0 = r * (sin alpha)
+
+    x1 = r * (cos beta)
+
+    y1 = r * (sin beta)
+  in
+    g [ stroke "black", fill color ] [
+      Svg.path [ d ("M 0 0 "
+                   ++ "L" ++ (toString x0) ++ " " ++ (toString y0)
+                   ++ "A" ++ (toString r)  ++ " " ++ (toString r) ++ " 0 0 1 " ++ (toString x1) ++ " " ++ (toString y1)
+                   ++ "Z") ] []
+    ]
+
+segmentColor : Int -> Int -> String
+segmentColor index total =
+  let
+    baseAngle = 360 / (toFloat total)
+
+    angle = (toFloat index) * baseAngle
+  in
+    colorToCssRgb (hsl angle 1.0 0.5)
