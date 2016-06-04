@@ -226,7 +226,7 @@ segment position index total radius =
 segmentColor : Int -> Int -> String
 segmentColor index total =
   let
-    baseAngle = 360 / (toFloat total)
+    baseAngle = 2 * pi / (toFloat total)
 
     angle = (toFloat index) * baseAngle
   in
