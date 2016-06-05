@@ -114,7 +114,8 @@ equalize (xs, ys) =
 
 
 type Message =
-  Rotate
+  DoNothing
+  | Rotate
   | InverseRotate
   | Swap
   | Increase
@@ -124,6 +125,9 @@ type Message =
 update : Message -> Model -> (Model, Cmd Message)
 update msg model =
   case msg of
+    DoNothing ->
+      (model, Cmd.none)
+    
     Rotate ->
       (
        { model | permutation = rotate model.permutation }
@@ -268,4 +272,10 @@ subscriptions model =
 handlePress : KeyCode -> Message
 handlePress keycode =
   case keycode of
-    _ -> Rotate
+    82 -> Rotate
+
+    83 -> Swap
+
+    84 -> InverseRotate
+
+    _ -> DoNothing
