@@ -190,11 +190,8 @@ view model =
       viewPermutationAsSvg model.permutation
   in
     div [] [
-      decrease
-      , increase
-      , rotate
-      , inverse
-      , swap
+      div [] [ decrease, increase ]
+      , div [] [ rotate, inverse, swap ]
       , brainbow
     ]
 
