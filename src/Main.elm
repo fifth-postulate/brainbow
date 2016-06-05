@@ -181,7 +181,7 @@ view model =
       button [ onClick Rotate ] [ Html.text "r" ]
 
     inverse =
-      button [ onClick InverseRotate ] [ Html.text "r^-1" ]
+      button [ onClick InverseRotate ] [ Html.text "t" ]
 
     swap =
       button [ onClick Swap ] [ Html.text "s" ]
