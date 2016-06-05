@@ -1,17 +1,19 @@
 import Html exposing (..)
-import Html.App exposing (beginnerProgram)
+import Html.App exposing (program)
 import Html.Events exposing (onClick)
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
 import Color exposing (hsl)
 import Color.Convert exposing (colorToCssRgb)
+import Keyboard exposing (KeyCode)
 
 
 main =
-  beginnerProgram {
-    model = init 6
+  program {
+    init = init 6
   , view = view
   , update = update
+  , subscriptions = subscriptions
   }
 
 
@@ -25,8 +27,13 @@ type alias Model =
   }
 
 
-init : Int -> Model
+init : Int -> (Model, Cmd Message)
 init n =
+  (initModel n, Cmd.none)
+
+
+initModel: Int -> Model
+initModel n =
   {
     permutation = range n
     , size = n
@@ -114,29 +121,44 @@ type Message =
   | Decrease
 
 
-update : Message -> Model -> Model
+update : Message -> Model -> (Model, Cmd Message)
 update msg model =
   case msg of
     Rotate ->
-      { model | permutation = rotate model.permutation }
+      (
+       { model | permutation = rotate model.permutation }
+      , Cmd.none
+      )
 
     InverseRotate ->
-      { model | permutation = inverseRotate model.permutation }
+      (
+       { model | permutation = inverseRotate model.permutation }
+      , Cmd.none
+      )
 
     Swap ->
-      { model | permutation = swapFirst model.permutation }
+      (
+       { model | permutation = swapFirst model.permutation }
+      , Cmd.none
+      )
 
     Increase ->
       let
         newSize = model.size + 1
       in
-        { model | size = newSize, permutation = range newSize }
+        (
+         { model | size = newSize, permutation = range newSize }
+        , Cmd.none
+        )
 
     Decrease ->
       let
         newSize = Basics.max 2 (model.size - 1)
       in
-        { model | size = newSize, permutation = range newSize }
+        (
+         { model | size = newSize, permutation = range newSize }
+        , Cmd.none
+        )
 
 
 -- VIEW
@@ -231,3 +253,19 @@ segmentColor index total =
     angle = (toFloat index) * baseAngle
   in
     colorToCssRgb (hsl angle 1.0 0.5)
+
+
+-- SUBSCRIPTIONS
+
+
+subscriptions : Model -> Sub Message
+subscriptions model =
+  Sub.batch [
+    Keyboard.downs handlePress
+  ]
+
+
+handlePress : KeyCode -> Message
+handlePress keycode =
+  case keycode of
+    _ -> Rotate
