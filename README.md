@@ -1,5 +1,7 @@
 # brainbow
-An Elm project implementing the brainbow puzzle
+An Elm project implementing the brainbow puzzle.
+
+Play it [now][puzzle].
 
 ## Getting Started
 Follow the next instructions to start puzzling.
@@ -11,3 +13,4 @@ Follow the next instructions to start puzzling.
 
 [install]: http://elm-lang.org/install
 [local]: http://localhost:8000/src/Main.elm
+[puzzle]: http://fifth-postulate/brainbow
