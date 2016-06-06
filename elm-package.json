@@ -4,7 +4,6 @@
     "repository": "https://github.com/fifth-postulate/brainbow.git",
     "license": "MIT",
     "source-directories": [
-        ".",
         "src"
     ],
     "exposed-modules": [],
