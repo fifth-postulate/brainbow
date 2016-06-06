@@ -3,6 +3,9 @@
 dist: gh-pages/index.html gh-pages/assets gh-pages/js
 	@echo "Finished"
 
+deploy: dist deploy-pages.sh
+	./deploy-pages.sh
+
 gh-pages/index.html: gh-pages index.html
 	cp index.html gh-pages/index.html
 
