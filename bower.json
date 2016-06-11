@@ -1,0 +1,30 @@
+{
+    "name": "brainbow",
+    "description": "An Elm project implementing the brainbow puzzle",
+    "main": "js/brainbow.js",
+    "authors": [
+        "Daan van Berkel"
+    ],
+    "license": "MIT",
+    "keywords": [
+        "puzzle",
+        "elm"
+    ],
+    "homepage": "https://github.com/fifth-postulate/brainbow",
+    "moduleType": [],
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests",
+        "assets",
+        "deploy-pages.sh",
+        "elm-stuff",
+        "gh-pages",
+        "index.html",
+        "Makefile",
+        "package.json",
+        "src"
+    ]
+}
