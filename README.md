@@ -9,7 +9,7 @@ Follow the next instructions to start puzzling.
 1. [Install elm][install].
 2. Clone this repo and `cd` into it.
 3. Run `elm reactor`.
-4. Open [https://localhost:8000/src/Main.elm][local]
+4. Open [https://localhost:8000/src/Brainbow.elm][local]
 
 ## Install with [bower][]
 You can install the JavaScript file from bower with the following command.
@@ -32,6 +32,6 @@ bower_components directory. To use it create a HTML file reference the
 ```
 
 [install]: http://elm-lang.org/install
-[local]: http://localhost:8000/src/Main.elm
+[local]: http://localhost:8000/src/Brainbow.elm
 [puzzle]: http://fifth-postulate/brainbow
 [bower]: https://bower.io/
