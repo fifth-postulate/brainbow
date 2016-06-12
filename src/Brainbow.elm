@@ -1,3 +1,4 @@
+import Dict exposing (get, insert, empty)
 import Html exposing (..)
 import Html.App exposing (program)
 import Html.Events exposing (onClick)
@@ -266,13 +267,17 @@ subscriptions model =
   ]
 
 
+handlers : Dict KeyCode Message
+handlers =
+     insert 82 Rotate
+  <| insert 83 Swap
+  <| insert 84 InverseRotate
+  <| empty
+
+
 handlePress : KeyCode -> Message
 handlePress keycode =
-  case keycode of
-    82 -> Rotate
+  case get keycode handlers of
+    Just action -> action
 
-    83 -> Swap
-
-    84 -> InverseRotate
-
-    _ -> DoNothing
+    Nothing -> DoNothing
