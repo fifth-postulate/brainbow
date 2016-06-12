@@ -27,7 +27,7 @@ bower_components directory. To use it create a HTML file reference the
 <script src="js/brainbow.js"></script>
 <script>
   var node = document.getElementById('container');
-  var app = Elm.Main.embed(node);
+  var app = Elm.Brainbow.embed(node);
 </script>
 ```
 

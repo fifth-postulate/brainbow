@@ -8543,14 +8543,14 @@ var _eskimoblood$elm_color_extra$Color_Convert$Lab = F3(
 		return {l: a, a: b, b: c};
 	});
 
-var _fifth_postulate$brainbow$Main$segmentColor = F2(
+var _fifth_postulate$brainbow$Brainbow$segmentColor = F2(
 	function (index, total) {
 		var baseAngle = (2 * _elm_lang$core$Basics$pi) / _elm_lang$core$Basics$toFloat(total);
 		var angle = _elm_lang$core$Basics$toFloat(index) * baseAngle;
 		return _eskimoblood$elm_color_extra$Color_Convert$colorToCssRgb(
 			A3(_elm_lang$core$Color$hsl, angle, 1.0, 0.5));
 	});
-var _fifth_postulate$brainbow$Main$segment = F4(
+var _fifth_postulate$brainbow$Brainbow$segment = F4(
 	function (position, index, total, radius) {
 		var r = _elm_lang$core$Basics$toFloat(radius);
 		var baseAngle = (2 * _elm_lang$core$Basics$pi) / _elm_lang$core$Basics$toFloat(total);
@@ -8560,7 +8560,7 @@ var _fifth_postulate$brainbow$Main$segment = F4(
 		var beta = (_elm_lang$core$Basics$toFloat(position) + 1) * baseAngle;
 		var x1 = r * _elm_lang$core$Basics$cos(beta);
 		var y1 = r * _elm_lang$core$Basics$sin(beta);
-		var color = A2(_fifth_postulate$brainbow$Main$segmentColor, index, total);
+		var color = A2(_fifth_postulate$brainbow$Brainbow$segmentColor, index, total);
 		return A2(
 			_elm_lang$svg$Svg$g,
 			_elm_lang$core$Native_List.fromArray(
@@ -8620,16 +8620,16 @@ var _fifth_postulate$brainbow$Main$segment = F4(
 						[]))
 				]));
 	});
-var _fifth_postulate$brainbow$Main$bow = F2(
+var _fifth_postulate$brainbow$Brainbow$bow = F2(
 	function (radius, permutation) {
 		var total = _elm_lang$core$List$length(permutation);
 		var mapper = F2(
 			function (position, index) {
-				return A4(_fifth_postulate$brainbow$Main$segment, position, index, total, radius);
+				return A4(_fifth_postulate$brainbow$Brainbow$segment, position, index, total, radius);
 			});
 		return A2(_elm_lang$core$List$indexedMap, mapper, permutation);
 	});
-var _fifth_postulate$brainbow$Main$viewPermutationAsSvg = function (permutation) {
+var _fifth_postulate$brainbow$Brainbow$viewPermutationAsSvg = function (permutation) {
 	var size = _elm_lang$core$List$length(permutation) - 1;
 	return A2(
 		_elm_lang$svg$Svg$svg,
@@ -8648,18 +8648,18 @@ var _fifth_postulate$brainbow$Main$viewPermutationAsSvg = function (permutation)
 						_elm_lang$svg$Svg_Attributes$fill('none'),
 						_elm_lang$svg$Svg_Attributes$stroke('black')
 					]),
-				A2(_fifth_postulate$brainbow$Main$bow, 240, permutation)),
+				A2(_fifth_postulate$brainbow$Brainbow$bow, 240, permutation)),
 				A2(
 				_elm_lang$svg$Svg$g,
 				_elm_lang$core$Native_List.fromArray(
 					[]),
 				A2(
-					_fifth_postulate$brainbow$Main$bow,
+					_fifth_postulate$brainbow$Brainbow$bow,
 					80,
 					_elm_lang$core$Native_List.range(0, size)))
 			]));
 };
-var _fifth_postulate$brainbow$Main$equalize = function (_p0) {
+var _fifth_postulate$brainbow$Brainbow$equalize = function (_p0) {
 	equalize:
 	while (true) {
 		var _p1 = _p0;
@@ -8689,8 +8689,8 @@ var _fifth_postulate$brainbow$Main$equalize = function (_p0) {
 		}
 	}
 };
-var _fifth_postulate$brainbow$Main$split = function (permutation) {
-	return _fifth_postulate$brainbow$Main$equalize(
+var _fifth_postulate$brainbow$Brainbow$split = function (permutation) {
+	return _fifth_postulate$brainbow$Brainbow$equalize(
 		{
 			ctor: '_Tuple2',
 			_0: _elm_lang$core$Native_List.fromArray(
@@ -8698,7 +8698,7 @@ var _fifth_postulate$brainbow$Main$split = function (permutation) {
 			_1: permutation
 		});
 };
-var _fifth_postulate$brainbow$Main$reverse = function (permutation) {
+var _fifth_postulate$brainbow$Brainbow$reverse = function (permutation) {
 	var _p5 = permutation;
 	if (_p5.ctor === '[]') {
 		return _elm_lang$core$Native_List.fromArray(
@@ -8706,13 +8706,13 @@ var _fifth_postulate$brainbow$Main$reverse = function (permutation) {
 	} else {
 		return A2(
 			_elm_lang$core$Basics_ops['++'],
-			_fifth_postulate$brainbow$Main$reverse(_p5._1),
+			_fifth_postulate$brainbow$Brainbow$reverse(_p5._1),
 			_elm_lang$core$Native_List.fromArray(
 				[_p5._0]));
 	}
 };
-var _fifth_postulate$brainbow$Main$swapFirst = function (permutation) {
-	var parts = _fifth_postulate$brainbow$Main$equalize(
+var _fifth_postulate$brainbow$Brainbow$swapFirst = function (permutation) {
+	var parts = _fifth_postulate$brainbow$Brainbow$equalize(
 		{
 			ctor: '_Tuple2',
 			_0: _elm_lang$core$Native_List.fromArray(
@@ -8723,10 +8723,10 @@ var _fifth_postulate$brainbow$Main$swapFirst = function (permutation) {
 	var second = _elm_lang$core$Basics$snd(parts);
 	return A2(
 		_elm_lang$core$Basics_ops['++'],
-		_fifth_postulate$brainbow$Main$reverse(first),
+		_fifth_postulate$brainbow$Brainbow$reverse(first),
 		second);
 };
-var _fifth_postulate$brainbow$Main$rotate = function (permutation) {
+var _fifth_postulate$brainbow$Brainbow$rotate = function (permutation) {
 	var _p6 = permutation;
 	if (_p6.ctor === '[]') {
 		return _elm_lang$core$Native_List.fromArray(
@@ -8739,24 +8739,24 @@ var _fifth_postulate$brainbow$Main$rotate = function (permutation) {
 				[_p6._0]));
 	}
 };
-var _fifth_postulate$brainbow$Main$inverseRotate = function (permutation) {
-	return _fifth_postulate$brainbow$Main$reverse(
-		_fifth_postulate$brainbow$Main$rotate(
-			_fifth_postulate$brainbow$Main$reverse(permutation)));
+var _fifth_postulate$brainbow$Brainbow$inverseRotate = function (permutation) {
+	return _fifth_postulate$brainbow$Brainbow$reverse(
+		_fifth_postulate$brainbow$Brainbow$rotate(
+			_fifth_postulate$brainbow$Brainbow$reverse(permutation)));
 };
-var _fifth_postulate$brainbow$Main$sequence = F2(
+var _fifth_postulate$brainbow$Brainbow$sequence = F2(
 	function (a, b) {
 		return (_elm_lang$core$Native_Utils.cmp(a, b) > -1) ? _elm_lang$core$Native_List.fromArray(
 			[]) : A2(
 			_elm_lang$core$Basics_ops['++'],
 			_elm_lang$core$Native_List.fromArray(
 				[a]),
-			A2(_fifth_postulate$brainbow$Main$sequence, a + 1, b));
+			A2(_fifth_postulate$brainbow$Brainbow$sequence, a + 1, b));
 	});
-var _fifth_postulate$brainbow$Main$range = function (n) {
-	return A2(_fifth_postulate$brainbow$Main$sequence, 0, n);
+var _fifth_postulate$brainbow$Brainbow$range = function (n) {
+	return A2(_fifth_postulate$brainbow$Brainbow$sequence, 0, n);
 };
-var _fifth_postulate$brainbow$Main$update = F2(
+var _fifth_postulate$brainbow$Brainbow$update = F2(
 	function (msg, model) {
 		var _p7 = msg;
 		switch (_p7.ctor) {
@@ -8768,7 +8768,7 @@ var _fifth_postulate$brainbow$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							permutation: _fifth_postulate$brainbow$Main$rotate(model.permutation)
+							permutation: _fifth_postulate$brainbow$Brainbow$rotate(model.permutation)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -8778,7 +8778,7 @@ var _fifth_postulate$brainbow$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							permutation: _fifth_postulate$brainbow$Main$inverseRotate(model.permutation)
+							permutation: _fifth_postulate$brainbow$Brainbow$inverseRotate(model.permutation)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -8788,7 +8788,7 @@ var _fifth_postulate$brainbow$Main$update = F2(
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							permutation: _fifth_postulate$brainbow$Main$swapFirst(model.permutation)
+							permutation: _fifth_postulate$brainbow$Brainbow$swapFirst(model.permutation)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -8800,7 +8800,7 @@ var _fifth_postulate$brainbow$Main$update = F2(
 						model,
 						{
 							size: newSize,
-							permutation: _fifth_postulate$brainbow$Main$range(newSize)
+							permutation: _fifth_postulate$brainbow$Brainbow$range(newSize)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -8812,41 +8812,41 @@ var _fifth_postulate$brainbow$Main$update = F2(
 						model,
 						{
 							size: newSize,
-							permutation: _fifth_postulate$brainbow$Main$range(newSize)
+							permutation: _fifth_postulate$brainbow$Brainbow$range(newSize)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}
 	});
-var _fifth_postulate$brainbow$Main$initModel = function (n) {
+var _fifth_postulate$brainbow$Brainbow$initModel = function (n) {
 	return {
-		permutation: _fifth_postulate$brainbow$Main$range(n),
+		permutation: _fifth_postulate$brainbow$Brainbow$range(n),
 		size: n
 	};
 };
-var _fifth_postulate$brainbow$Main$init = function (n) {
+var _fifth_postulate$brainbow$Brainbow$init = function (n) {
 	return {
 		ctor: '_Tuple2',
-		_0: _fifth_postulate$brainbow$Main$initModel(n),
+		_0: _fifth_postulate$brainbow$Brainbow$initModel(n),
 		_1: _elm_lang$core$Platform_Cmd$none
 	};
 };
-var _fifth_postulate$brainbow$Main$Model = F2(
+var _fifth_postulate$brainbow$Brainbow$Model = F2(
 	function (a, b) {
 		return {permutation: a, size: b};
 	});
-var _fifth_postulate$brainbow$Main$Decrease = {ctor: 'Decrease'};
-var _fifth_postulate$brainbow$Main$Increase = {ctor: 'Increase'};
-var _fifth_postulate$brainbow$Main$Swap = {ctor: 'Swap'};
-var _fifth_postulate$brainbow$Main$InverseRotate = {ctor: 'InverseRotate'};
-var _fifth_postulate$brainbow$Main$Rotate = {ctor: 'Rotate'};
-var _fifth_postulate$brainbow$Main$view = function (model) {
-	var brainbow = _fifth_postulate$brainbow$Main$viewPermutationAsSvg(model.permutation);
+var _fifth_postulate$brainbow$Brainbow$Decrease = {ctor: 'Decrease'};
+var _fifth_postulate$brainbow$Brainbow$Increase = {ctor: 'Increase'};
+var _fifth_postulate$brainbow$Brainbow$Swap = {ctor: 'Swap'};
+var _fifth_postulate$brainbow$Brainbow$InverseRotate = {ctor: 'InverseRotate'};
+var _fifth_postulate$brainbow$Brainbow$Rotate = {ctor: 'Rotate'};
+var _fifth_postulate$brainbow$Brainbow$view = function (model) {
+	var brainbow = _fifth_postulate$brainbow$Brainbow$viewPermutationAsSvg(model.permutation);
 	var swap = A2(
 		_elm_lang$html$Html$button,
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_elm_lang$html$Html_Events$onClick(_fifth_postulate$brainbow$Main$Swap)
+				_elm_lang$html$Html_Events$onClick(_fifth_postulate$brainbow$Brainbow$Swap)
 			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
@@ -8856,7 +8856,7 @@ var _fifth_postulate$brainbow$Main$view = function (model) {
 		_elm_lang$html$Html$button,
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_elm_lang$html$Html_Events$onClick(_fifth_postulate$brainbow$Main$InverseRotate)
+				_elm_lang$html$Html_Events$onClick(_fifth_postulate$brainbow$Brainbow$InverseRotate)
 			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
@@ -8866,7 +8866,7 @@ var _fifth_postulate$brainbow$Main$view = function (model) {
 		_elm_lang$html$Html$button,
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_elm_lang$html$Html_Events$onClick(_fifth_postulate$brainbow$Main$Rotate)
+				_elm_lang$html$Html_Events$onClick(_fifth_postulate$brainbow$Brainbow$Rotate)
 			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
@@ -8876,7 +8876,7 @@ var _fifth_postulate$brainbow$Main$view = function (model) {
 		_elm_lang$html$Html$button,
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_elm_lang$html$Html_Events$onClick(_fifth_postulate$brainbow$Main$Increase)
+				_elm_lang$html$Html_Events$onClick(_fifth_postulate$brainbow$Brainbow$Increase)
 			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
@@ -8886,7 +8886,7 @@ var _fifth_postulate$brainbow$Main$view = function (model) {
 		_elm_lang$html$Html$button,
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_elm_lang$html$Html_Events$onClick(_fifth_postulate$brainbow$Main$Decrease)
+				_elm_lang$html$Html_Events$onClick(_fifth_postulate$brainbow$Brainbow$Decrease)
 			]),
 		_elm_lang$core$Native_List.fromArray(
 			[
@@ -8913,40 +8913,44 @@ var _fifth_postulate$brainbow$Main$view = function (model) {
 				brainbow
 			]));
 };
-var _fifth_postulate$brainbow$Main$DoNothing = {ctor: 'DoNothing'};
-var _fifth_postulate$brainbow$Main$handlePress = function (keycode) {
-	var _p8 = keycode;
-	switch (_p8) {
-		case 82:
-			return _fifth_postulate$brainbow$Main$Rotate;
-		case 83:
-			return _fifth_postulate$brainbow$Main$Swap;
-		case 84:
-			return _fifth_postulate$brainbow$Main$InverseRotate;
-		default:
-			return _fifth_postulate$brainbow$Main$DoNothing;
+var _fifth_postulate$brainbow$Brainbow$handlers = A3(
+	_elm_lang$core$Dict$insert,
+	82,
+	_fifth_postulate$brainbow$Brainbow$Rotate,
+	A3(
+		_elm_lang$core$Dict$insert,
+		83,
+		_fifth_postulate$brainbow$Brainbow$Swap,
+		A3(_elm_lang$core$Dict$insert, 84, _fifth_postulate$brainbow$Brainbow$InverseRotate, _elm_lang$core$Dict$empty)));
+var _fifth_postulate$brainbow$Brainbow$DoNothing = {ctor: 'DoNothing'};
+var _fifth_postulate$brainbow$Brainbow$handlePress = function (keycode) {
+	var _p8 = A2(_elm_lang$core$Dict$get, keycode, _fifth_postulate$brainbow$Brainbow$handlers);
+	if (_p8.ctor === 'Just') {
+		return _p8._0;
+	} else {
+		return _fifth_postulate$brainbow$Brainbow$DoNothing;
 	}
 };
-var _fifth_postulate$brainbow$Main$subscriptions = function (model) {
+var _fifth_postulate$brainbow$Brainbow$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$batch(
 		_elm_lang$core$Native_List.fromArray(
 			[
-				_elm_lang$keyboard$Keyboard$downs(_fifth_postulate$brainbow$Main$handlePress)
+				_elm_lang$keyboard$Keyboard$downs(_fifth_postulate$brainbow$Brainbow$handlePress)
 			]));
 };
-var _fifth_postulate$brainbow$Main$main = {
+var _fifth_postulate$brainbow$Brainbow$main = {
 	main: _elm_lang$html$Html_App$program(
 		{
-			init: _fifth_postulate$brainbow$Main$init(6),
-			view: _fifth_postulate$brainbow$Main$view,
-			update: _fifth_postulate$brainbow$Main$update,
-			subscriptions: _fifth_postulate$brainbow$Main$subscriptions
+			init: _fifth_postulate$brainbow$Brainbow$init(6),
+			view: _fifth_postulate$brainbow$Brainbow$view,
+			update: _fifth_postulate$brainbow$Brainbow$update,
+			subscriptions: _fifth_postulate$brainbow$Brainbow$subscriptions
 		})
 };
 
 var Elm = {};
-Elm['Main'] = Elm['Main'] || {};
-_elm_lang$core$Native_Platform.addPublicModule(Elm['Main'], 'Main', typeof _fifth_postulate$brainbow$Main$main === 'undefined' ? null : _fifth_postulate$brainbow$Main$main);
+Elm['Brainbow'] = Elm['Brainbow'] || {};
+_elm_lang$core$Native_Platform.addPublicModule(Elm['Brainbow'], 'Brainbow', typeof _fifth_postulate$brainbow$Brainbow$main === 'undefined' ? null : _fifth_postulate$brainbow$Brainbow$main);
 
 if (typeof define === "function" && define['amd'])
 {

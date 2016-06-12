@@ -1,4 +1,6 @@
-import Dict exposing (get, insert, empty)
+module Brainbow exposing (..)
+
+import Dict exposing (Dict, get, insert, empty)
 import Html exposing (..)
 import Html.App exposing (program)
 import Html.Events exposing (onClick)
