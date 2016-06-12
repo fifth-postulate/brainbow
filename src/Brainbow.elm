@@ -127,7 +127,7 @@ update msg model =
   case msg of
     DoNothing ->
       (model, Cmd.none)
-    
+
     Rotate ->
       (
        { model | permutation = rotate model.permutation }
