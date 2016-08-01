@@ -33,5 +33,5 @@ bower_components directory. To use it create a HTML file reference the
 
 [install]: http://elm-lang.org/install
 [local]: http://localhost:8000/src/Brainbow.elm
-[puzzle]: http://fifth-postulate/brainbow
+[puzzle]: http://fifth-postulate.nl/brainbow
 [bower]: https://bower.io/
