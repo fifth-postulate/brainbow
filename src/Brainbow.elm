@@ -129,6 +129,7 @@ type Message =
   | Swap
   | Increase
   | Decrease
+  | ToggleDebug
 
 
 update : Message -> Model -> (Model, Cmd Message)
@@ -173,6 +174,11 @@ update msg model =
         , Cmd.none
         )
 
+    ToggleDebug ->
+        ( { model | debug = not model.debug }
+        , Cmd.none
+        )
+
 
 -- VIEW
 
@@ -185,6 +191,9 @@ view model =
 
     increase =
       button [ onClick Increase ] [ Html.text "+" ]
+
+    toggle =
+      button [ onClick ToggleDebug ] [ Html.text "d" ]
 
     rotate =
       button [ onClick Rotate ] [ Html.text "r" ]
@@ -203,7 +212,7 @@ view model =
     div [ A.style [
                ("width", dimension)
               ] ] [
-      div [] [ decrease, increase ]
+      div [] [ decrease, increase, toggle ]
       , div [] [ rotate, inverse, swap ]
       , brainbow
     ]
