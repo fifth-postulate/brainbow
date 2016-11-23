@@ -305,7 +305,8 @@ subscriptions model =
 
 handlers : Dict KeyCode Message
 handlers =
-     insert 82 Rotate
+     insert 68 ToggleDebug
+  <| insert 82 Rotate
   <| insert 83 Swap
   <| insert 84 InverseRotate
   <| empty
