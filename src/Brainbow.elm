@@ -1,6 +1,7 @@
 module Brainbow exposing (..)
 
 import Dict exposing (Dict, get, insert, empty)
+import String exposing (join)
 import Html exposing (..)
 import Html.App exposing (program)
 import Html.Events exposing (onClick)
@@ -13,7 +14,7 @@ import Keyboard exposing (KeyCode)
 
 main =
   program {
-    init = init 6
+    init = init 6 240
   , view = view
   , update = update
   , subscriptions = subscriptions
@@ -26,20 +27,22 @@ main =
 type alias Model =
   {
     permutation: List Int
-    , size: Int
+  , size: Int
+  , radius: Int
   }
 
 
-init : Int -> (Model, Cmd Message)
-init n =
-  (initModel n, Cmd.none)
+init : Int -> Int -> (Model, Cmd Message)
+init n radius =
+  (initModel n radius, Cmd.none)
 
 
-initModel: Int -> Model
-initModel n =
+initModel: Int -> Int -> Model
+initModel n radius =
   {
     permutation = range n
-    , size = n
+  , size = n
+  , radius = radius
   }
 
 
@@ -190,7 +193,7 @@ view model =
       button [ onClick Swap ] [ Html.text "s" ]
 
     brainbow =
-      viewPermutationAsSvg model.permutation
+      viewPermutationAsSvg model
   in
     div [] [
       div [] [ decrease, increase ]
@@ -199,13 +202,21 @@ view model =
     ]
 
 
-viewPermutationAsSvg : List Int -> Html Message
-viewPermutationAsSvg permutation =
+viewPermutationAsSvg : Model -> Html Message
+viewPermutationAsSvg model =
   let
+    permutation = model.permutation
+
+    radius = model.radius
+
+    dimension = toString (2 * radius)
+
+    viewbox = join " " (List.map toString [-radius, -radius, 2*radius, 2*radius])
+
     size = (List.length permutation) - 1
   in
-    Svg.svg [ width "480", height "480", viewBox "-240 -240 480 480"] [
-      g [ fill "none", stroke "black" ] (bow 240 permutation)
+    Svg.svg [ width dimension, height dimension, viewBox viewbox] [
+      g [ fill "none", stroke "black" ] (bow radius permutation)
       , g [] (bow 80 [0..(size)])
     ]
 
