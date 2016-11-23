@@ -30,6 +30,7 @@ type alias Model =
     permutation: List Int
   , size: Int
   , radius: Int
+  , debug: Bool
   }
 
 
@@ -44,6 +45,7 @@ initModel n radius =
     permutation = range n
   , size = n
   , radius = radius
+  , debug = False
   }
 
 
@@ -221,23 +223,23 @@ viewPermutationAsSvg model =
     size = (List.length permutation) - 1
   in
     Svg.svg [ width dimension, height dimension, viewBox viewbox] [
-      g [ fill "none", stroke "black" ] (bow radius permutation)
-      , g [] (bow 80 [0..(size)])
+      g [ fill "none", stroke "black" ] (bow model.debug radius permutation)
+      , g [] (bow model.debug 80 [0..(size)])
     ]
 
 
-bow : Int -> List Int -> List (Svg Message)
-bow radius permutation =
+bow : Bool -> Int -> List Int -> List (Svg Message)
+bow debug radius permutation =
   let
     total = List.length permutation
 
-    mapper = \position -> (\index -> (segment position index total radius))
+    mapper = \position -> (\index -> (segment debug position index total radius))
   in
     List.indexedMap mapper permutation
 
 
-segment : Int -> Int -> Int -> Int -> Svg Message
-segment position index total radius =
+segment : Bool -> Int -> Int -> Int -> Int -> Svg Message
+segment debug position index total radius =
   let
     color = (segmentColor index total)
 
@@ -260,13 +262,15 @@ segment position index total radius =
     xt = (x0 + x1) / 2
 
     yt = (y0 + y1) / 2
+
+    message = if debug then (toString index) else ""
   in
     g [ stroke "black", fill color ] [
       Svg.path [ d ("M 0 0 "
                    ++ "L" ++ (toString x0) ++ " " ++ (toString y0)
                    ++ "A" ++ (toString r)  ++ " " ++ (toString r) ++ " 0 0 1 " ++ (toString x1) ++ " " ++ (toString y1)
                    ++ "Z") ] [],
-          Svg.text' [ x (toString xt), y (toString yt), textAnchor "middle"] [ Svg.text (toString index) ]
+          Svg.text' [ x (toString xt), y (toString yt), textAnchor "middle"] [ Svg.text message ]
     ]
 
 
