@@ -256,12 +256,17 @@ segment position index total radius =
     x1 = r * (cos beta)
 
     y1 = r * (sin beta)
+
+    xt = (x0 + x1) / 2
+
+    yt = (y0 + y1) / 2
   in
     g [ stroke "black", fill color ] [
       Svg.path [ d ("M 0 0 "
                    ++ "L" ++ (toString x0) ++ " " ++ (toString y0)
                    ++ "A" ++ (toString r)  ++ " " ++ (toString r) ++ " 0 0 1 " ++ (toString x1) ++ " " ++ (toString y1)
-                   ++ "Z") ] []
+                   ++ "Z") ] [],
+          Svg.text' [ x (toString xt), y (toString yt), textAnchor "middle"] [ Svg.text (toString index) ]
     ]
 
 
