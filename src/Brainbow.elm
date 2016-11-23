@@ -4,6 +4,7 @@ import Dict exposing (Dict, get, insert, empty)
 import String exposing (join)
 import Html exposing (..)
 import Html.App exposing (program)
+import Html.Attributes as A
 import Html.Events exposing (onClick)
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
@@ -194,8 +195,12 @@ view model =
 
     brainbow =
       viewPermutationAsSvg model
+
+    dimension = toString (2 * model.radius) ++ "px"
   in
-    div [] [
+    div [ A.style [
+               ("width", dimension)
+              ] ] [
       div [] [ decrease, increase ]
       , div [] [ rotate, inverse, swap ]
       , brainbow
